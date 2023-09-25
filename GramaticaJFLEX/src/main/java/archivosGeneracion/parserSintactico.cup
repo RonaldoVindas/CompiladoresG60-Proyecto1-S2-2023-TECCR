@@ -1,0 +1,247 @@
+/* Área 1 - Código de Usuario */
+
+// Importación de Paquetes
+package analizadores;
+import java_cup.runtime.*;
+
+
+// Código para el Parser, Variables y Métodos de Manejo de Errores
+init with {::};
+
+parser code {:
+    // Connect this parser to a scanner!
+    Lexer lex;
+    public Sintax(Lexer lex){
+        this.lex=lex;
+}
+:}
+
+scan with {: return lex.next_token(); :};
+
+/* Área 2 - Declaraciones */
+
+// Símbolos Terminales
+
+// Palabras Reservadas
+terminal ABRACADABRA, HECHIZO, HECHIZOPRINCIPAL, GLOBALIO, SIAPARECE, SI, SINO, MIENTRAS, MUTACION, PARARANGUS, RIVIERTO, CONFRACTA, RECITA, ESCRIBIO, NUMERA, NUMERADECIMUS, SINOX, RUNA, RUNAS, TRUE, FALSE;
+
+// Literales
+terminal NOMBREINGREDIENTE;
+terminal RUNASTRING;
+terminal STRING_LITERAL;
+terminal NUMERALITERAL;
+terminal NUMERADECIMUSLITERAL;
+
+// Operadores Aritméticos
+terminal PLUS, MINUS, MUL, DIV, MOD, POW, EQ;
+
+// Operadores Unarios
+terminal PLUSPLUS, MINUSMINUS;
+
+// Operadores Lógicos
+terminal LESS, LESSEQ, GREATER, GREATEREQ, EQEQ, DIFF, NOT, NOTB, AND, OR;
+
+// Otros
+terminal SPACEGATO, COMMA, PARENL, PARENR, KEYL, KEYR, ASSIGN, DOTCOMMA, DOUBLEDOT, COMMENT, MULCOMMENTL, MULCOMMENTR;
+
+// Símbolos NO-Terminales
+non terminal encantamiento, nombre_ingrediente, Numera, NumeraDecimus, SiNox, Runa, Runas, hechizos, hechizo, lista_ingredientes, ritual_ingredientes, hechizo_principal, conjuros, esencia, conjuro, invocacion_encanto, enlace_encanto, encanto, creacion_ingredientes, conjuro_arcano, conjuro_arcano_prima, invocacion_term, invocacion_factor, conjuro_relacional, encantamiento_relacional, ritual_logico, conjuro_logico, not_logico, cola_conjuro_logico, conjuro_si, conjuro_mientras, conjuro_mutacion, casos_switch, caso_switch, conjuro_para,inicio_fin_paso, inicio, fin, paso, conjuro_revertir, conjuro_confractus, conjuro_leer, conjuro_escribir, runica, runica_unica, runica_multiple;
+
+// Precedencias y Asociatividad de Operadores
+
+precedence left POW;
+precedence left MUL, DIV, MOD;
+precedence left PLUS, MINUS;
+precedence left EQ;
+precedence left LESS, LESSEQ, GREATER, GREATEREQ, EQEQ, DIFF;
+precedence left NOT, NOTB;
+precedence left AND, OR;
+
+// Producción Inicial
+start with encantamiento;
+
+/* Área 3 - Reglas Semánticas */
+
+encantamiento ::= ABRACADABRA SPACEGATO hechizos hechizo_principal
+;
+nombre_ingrediente ::= NOMBREINGREDIENTE
+;
+Numera ::= NUMERALITERAL
+;
+NumeraDecimus ::= NUMERADECIMUSLITERAL
+;
+
+SiNox ::= TRUE | FALSE
+;
+
+Runas ::= RUNASTRING
+;
+
+hechizos ::= hechizos hechizo
+                |
+;
+
+hechizo ::= HECHIZO SPACEGATO esencia SPACEGATO nombre_ingrediente PARENL lista_ingredientes PARENR KEYL conjuros KEYR
+                | creacion_ingredientes
+;
+
+esencia ::= NUMERA | NUMERADECIMUS | SINOX | RUNA | RUNAS
+;
+
+
+creacion_ingredientes ::= GLOBALIO SPACEGATO esencia SPACEGATO nombre_ingrediente DOTCOMMA
+                | esencia SPACEGATO nombre_ingrediente DOTCOMMA 
+;
+                
+lista_ingredientes ::= esencia SPACEGATO nombre_ingrediente ritual_ingredientes |
+;
+
+ritual_ingredientes ::= COMMA esencia SPACEGATO nombre_ingrediente ritual_ingredientes |
+;
+
+hechizo_principal ::= HECHIZOPRINCIPAL PARENL PARENR KEYL conjuros KEYR
+;
+
+conjuros ::= conjuros conjuro 
+           | 
+;
+
+conjuro ::= creacion_ingredientes
+            | invocacion_encanto
+            | enlace_encanto
+            | conjuro_si
+            | conjuro_mutacion
+            | conjuro_mientras
+            | conjuro_para
+            | conjuro_revertir
+            | conjuro_confractus
+            | conjuro_leer
+            | conjuro_escribir
+            /*| runica*/
+;
+
+encanto ::= conjuro_arcano
+            | conjuro_relacional
+            | ritual_logico
+;
+
+
+invocacion_encanto ::= esencia SPACEGATO nombre_ingrediente ASSIGN encanto DOTCOMMA
+;
+
+
+enlace_encanto ::= nombre_ingrediente ASSIGN encanto DOTCOMMA
+;
+
+
+conjuro_si ::= SI PARENL encanto PARENR KEYL conjuros KEYR DOTCOMMA
+              | SI PARENL encanto PARENR KEYL conjuros KEYR SINO KEYL conjuros KEYR DOTCOMMA
+;
+//---------casos_switch
+conjuro_mutacion ::= MUTACION PARENL nombre_ingrediente PARENR KEYL KEYR  DOTCOMMA
+;
+
+
+conjuro_mientras ::= MIENTRAS PARENL encanto PARENR KEYL conjuros KEYR  DOTCOMMA
+                 | MIENTRAS PARENL encanto PARENR KEYL conjuros KEYR SINO KEYL conjuros KEYR DOTCOMMA
+;
+
+
+///-------- paso, inicio_fin_paso se debe arreglar====================================================================================================
+conjuro_para ::= PARARANGUS PARENL /*inicio_fin_paso*/ PARENR KEYL conjuros KEYR  DOTCOMMA
+;
+
+/*
+inicio_fin_paso ::= inicio fin paso
+            | fin paso
+            | fin
+;
+
+///---------encanto, epsilon
+inicio ::=  COMMA   
+
+;
+
+///---------encanto, quitar POW
+fin ::= COMMA
+;
+
+///---------encanto, epsilon
+paso ::= COMMA
+;
+===================================================================================================================================================
+*/
+
+
+conjuro_revertir ::= RIVIERTO PARENL encanto PARENR DOTCOMMA
+;
+
+conjuro_confractus ::= CONFRACTA DOTCOMMA
+;
+
+conjuro_leer ::= RECITA PARENL nombre_ingrediente PARENR DOTCOMMA
+;
+
+
+conjuro_escribir ::= ESCRIBIO PARENL encanto PARENR DOTCOMMA
+;
+
+
+conjuro_arcano ::= invocacion_term conjuro_arcano_prima
+            |
+;
+
+conjuro_arcano_prima ::= PLUS invocacion_term conjuro_arcano_prima
+            | MINUS invocacion_term conjuro_arcano_prima
+            | MUL invocacion_term conjuro_arcano_prima
+            | DIV invocacion_term conjuro_arcano_prima
+            | MOD invocacion_term conjuro_arcano_prima
+            | POW invocacion_term conjuro_arcano_prima
+            | PLUSPLUS
+            | MINUSMINUS
+            |   
+;
+
+invocacion_term ::= invocacion_factor
+;
+
+invocacion_factor ::= nombre_ingrediente
+            | Numera
+            | NumeraDecimus
+            | SiNox                                 //Podría eliminarse
+            | PARENL encanto PARENR
+          /*| Runas*/
+;
+
+conjuro_relacional ::= conjuro_arcano encantamiento_relacional conjuro_arcano
+;
+
+encantamiento_relacional ::= LESS | LESSEQ | GREATER | GREATEREQ | EQEQ | DIFF
+;
+
+ritual_logico ::= conjuro_logico cola_conjuro_logico
+;
+
+conjuro_logico ::= NOT SPACEGATO nombre_ingrediente
+            |  NOT SPACEGATO conjuro_relacional
+            |  NOTB SPACEGATO nombre_ingrediente            //No esta funcionando 
+            |  NOTB SPACEGATO conjuro_relacional            //No esta funcionando
+;
+
+cola_conjuro_logico ::= AND SPACEGATO conjuro_logico cola_conjuro_logico
+                   | OR SPACEGATO conjuro_logico cola_conjuro_logico
+                   |
+;
+
+
+/*
+
+
+//////Estos de abajo no funcionan:
+
+
+
+/*
+runica ::= Runas
+;
+*/
