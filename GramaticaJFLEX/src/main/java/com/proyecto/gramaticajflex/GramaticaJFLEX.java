@@ -89,7 +89,7 @@ public class GramaticaJFLEX {
      */  
    
     String rutaAParsear = "F:/Ronaldo/TEC/Semestre 12 - 2023/Compiladores e Interpretes/Proyectos/Proyecto 1/Bibliotecas/prueba.txt";   
-    /*
+    
     try {
           Reader inputLexer = new FileReader(rutaAParsear);
           Lexer scanner = new Lexer(inputLexer);
@@ -102,7 +102,7 @@ public class GramaticaJFLEX {
           System.out.println(e);
           System.out.println("No sirvió"); 
         }
-   */
+   
    }
     
     public static void main(String[] args) throws IOException, SilentExit, Exception {

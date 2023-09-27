@@ -315,7 +315,7 @@ caso_switch ::= SIAPARECE SPACEGATO encanto DOUBLEDOT conjuros
 
 
 /*
-//////Estos de abajo no funcionan:
+//////No se puede ejecutar, no funciona Runica:
 
 /*
 runica ::= Runas
