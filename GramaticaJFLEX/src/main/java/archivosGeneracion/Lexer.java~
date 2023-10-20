@@ -1219,7 +1219,7 @@ public class Lexer implements java_cup.runtime.Scanner {
           // fall through
           case 71: break;
           case 6:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.NOMBREINGREDIENTE));          return symbol(sym.NOMBREINGREDIENTE, value = yytext());
+            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.NOMBREINGREDIENTE));          return symbol(sym.NOMBREINGREDIENTE, yytext());
             }
           // fall through
           case 72: break;

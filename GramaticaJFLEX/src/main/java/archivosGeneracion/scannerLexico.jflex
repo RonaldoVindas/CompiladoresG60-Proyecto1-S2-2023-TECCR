@@ -50,8 +50,8 @@ CommentContent       = ( [^*] | \*+ [^/*] )*
 
 NombreIngrediente = [:jletter:] [:jletterdigit:]*
 
-Numera =  0 | [1-9][0-9]*                                       //Se elimina el "-?" Por conflictos de sintaxis con las operaciones aritméticas con el operador "-".
-NumeraDecimus = [1-9]+ [0-9]* \. [0-9]*  | 0 \. [0-9]*          //Se elimina el "-?" Por conflictos de sintaxis con las operaciones aritméticas con el operador "-".
+Numera =  0 | [1-9][0-9]*                                       //Se elimina el "-?" Por conflictos de sintaxis con las operaciones aritméticas con el operador "-".       (-?)
+NumeraDecimus = [1-9]+ [0-9]* \. [0-9]*  | 0 \. [0-9]*          //Se elimina el "-?" Por conflictos de sintaxis con las operaciones aritméticas con el operador "-".       (-?)
 Runas = [:jletterdigit:]*
 
 //Estados

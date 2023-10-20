@@ -79,7 +79,7 @@ terminal LESS, LESSEQ, GREATER, GREATEREQ, EQEQ, DIFF, NOT, NOTB, NOTC, AND, OR;
 terminal SPACEGATO, COMMA, PARENL, PARENR, KEYL, KEYR, ASSIGN, DOTCOMMA, DOUBLEDOT, COMMENT, MULCOMMENTL, MULCOMMENTR;
 
 // Símbolos NO-Terminales
-non terminal encantamiento, nombre_ingrediente, Numera, NumeraDecimus, SiNox, Runa, Runas, hechizos, hechizo, lista_ingredientes, ritual_ingredientes, hechizo_principal, conjuros, esencia, conjuro, invocacion_encanto, enlace_encanto, encanto, creacion_ingredientes, conjuro_arcano, conjuro_arcano_prima, invocacion_term, invocacion_factor, conjuro_relacional, encantamiento_relacional, ritual_logico, conjuro_logico, cola_conjuro_logico, conjuro_si, conjuro_mientras, conjuro_mutacion, casos_switch, caso_switch, conjuro_para,inicio_fin_paso, inicio, fin, paso, conjuro_revertir, conjuro_confractus, conjuro_leer, conjuro_escribir, runica, runica_unica, runica_multiple;
+non terminal encantamiento, nombre_ingrediente, Numera, NumeraDecimus, SiNox, Runa, Runas, hechizos, hechizo, lista_ingredientes, ritual_ingredientes, hechizo_principal, conjuros, esencia, conjuro, invocacion_encanto, enlace_encanto, encanto, creacion_ingredientes, conjuro_arcano, conjuro_arcano_prima, invocacion_term, invocacion_factor, conjuro_relacional, encantamiento_relacional, ritual_logico, conjuro_logico, cola_conjuro_logico, conjuro_si, conjuro_mientras, conjuro_mutacion, casos_switch, caso_switch, conjuro_para,inicio_fin_paso, inicio, fin, paso, conjuro_revertir, conjuro_confractus, conjuro_leer, conjuro_escribir, runica, runica_unica, runica_multiple, invocacion_funcion, encantos ;
 
 // Precedencias y Asociatividad de Operadores
 
@@ -162,10 +162,14 @@ conjuro ::= creacion_ingredientes:Ci                                            
             | conjuro_confractus:cc                                                                        /*{: listaTablaSimbolos.get(currentHash).add(cc.toString()); :}*/ 
             | conjuro_leer:cl                                                                              /*{: listaTablaSimbolos.get(currentHash).add(cl.toString()); :}*/                                                                              
             | conjuro_escribir:ce                                                                          /*{: listaTablaSimbolos.get(currentHash).add(ce.toString()); :}*/ 
-           
+            | invocacion_funcion DOTCOMMA
+            | nombre_ingrediente PLUSPLUS DOTCOMMA
+            | nombre_ingrediente MINUSMINUS DOTCOMMA
             /*| runica*/
            
 ;
+
+
 
 encanto ::= conjuro_arcano
             | conjuro_relacional
@@ -266,8 +270,6 @@ conjuro_arcano_prima ::= PLUS invocacion_term conjuro_arcano_prima
             | DIV invocacion_term conjuro_arcano_prima
             | MOD invocacion_term conjuro_arcano_prima
             | POW invocacion_term conjuro_arcano_prima
-            | PLUSPLUS
-            | MINUSMINUS
             |   
 ;
 
@@ -280,8 +282,16 @@ invocacion_factor ::= nombre_ingrediente
             | SiNox                                 //Podría eliminarse
             | PARENL encanto PARENR
             | Runas
-            | SPACEGATO nombre_ingrediente PARENL encanto PARENR
+            | invocacion_funcion
           /*| Runas*/
+;
+
+invocacion_funcion ::= SPACEGATO nombre_ingrediente PARENL encantos PARENR
+           //| SPACEGATO nombre_ingrediente PARENL encantos PARENR DOTCOMMA
+;
+
+encantos ::= encantos COMMA encanto
+            | encanto           
 ;
 
 conjuro_relacional ::= conjuro_arcano encantamiento_relacional conjuro_arcano
@@ -291,12 +301,19 @@ encantamiento_relacional ::= LESS | LESSEQ | GREATER | GREATEREQ | EQEQ | DIFF
 ;
 
 ritual_logico ::= conjuro_logico cola_conjuro_logico        ///Por arreglar
+                
 ;
 
-conjuro_logico ::= NOT SPACEGATO nombre_ingrediente
-            |  NOT SPACEGATO conjuro_relacional
+conjuro_logico ::= NOT SPACEGATO nombre_ingrediente 
+            |  NOT SPACEGATO conjuro_relacional 
+            |  NOT SPACEGATO invocacion_funcion
             |  NOTC SPACEGATO nombre_ingrediente            
-            |  NOTC SPACEGATO conjuro_relacional           
+            |  NOTC SPACEGATO conjuro_relacional
+            |  NOTC SPACEGATO invocacion_funcion
+            //|  nombre_ingrediente
+            //|  conjuro_relacional
+            //|  invocacion_funcion
+            
 ;
 
 cola_conjuro_logico ::= AND SPACEGATO conjuro_logico cola_conjuro_logico
@@ -305,17 +322,15 @@ cola_conjuro_logico ::= AND SPACEGATO conjuro_logico cola_conjuro_logico
 ;
 
 casos_switch ::= casos_switch caso_switch 
-         | 
+            | caso_switch
 ;
 
-caso_switch ::= SIAPARECE SPACEGATO encanto DOUBLEDOT conjuros
-
+caso_switch  ::= SIAPARECE SPACEGATO encanto DOUBLEDOT  conjuros 
+           // | SIAPARECE SPACEGATO encanto DOUBLEDOT conjuros conjuro_confractus
 ;
-
-
 
 /*
-//////No se puede ejecutar, no funciona Runica:
+//////Estos de abajo no funcionan:
 
 /*
 runica ::= Runas

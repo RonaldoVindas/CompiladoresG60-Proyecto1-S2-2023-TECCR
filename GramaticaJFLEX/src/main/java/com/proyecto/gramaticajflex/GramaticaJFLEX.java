@@ -5,8 +5,8 @@
 
 package com.proyecto.gramaticajflex;
 
-/*import analizadores.Lexer;
-import analizadores.Sintax;*/
+import analizadores.Lexer;
+import analizadores.Sintax;
 import analizadores.TablaSimbolos;
 
 import java.io.BufferedReader;
@@ -115,9 +115,9 @@ public class GramaticaJFLEX {
     
     
     
-    generarScannerParser();
+    //generarScannerParser();
    
-     //comprobarGramatica();
+     comprobarGramatica();
 
     }
     

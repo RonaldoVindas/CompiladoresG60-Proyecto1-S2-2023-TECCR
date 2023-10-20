@@ -1,4 +1,4 @@
-/*En correcciones*/
+
 package analizadores;
 
 import java.util.*;
