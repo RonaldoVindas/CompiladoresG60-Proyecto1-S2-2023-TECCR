@@ -31,10 +31,135 @@ action code{:
             System.out.println(">>>Tabla de símbolos: " + key);
             System.out.println("Valores: ");
             for(String item: listaTablaSimbolos.get(key)){
-            System.out.println(item);
+                System.out.println(item);
             }
         }
     }
+
+
+    public String verificarTipoVariable(String var){
+        boolean palabraEncontrada = false;
+        String[] partesTablaSimbolos = null;
+        String res = "null";
+        for (String elemento : listaTablaSimbolos.get(currentHash)) {
+            if (elemento.contains(var.toString())) {              //Si el nombre de la variable está en el currentHash se activa la bandera
+                palabraEncontrada = true;
+                break;                                          // Sale si encuentra la palabra
+
+            }
+        }
+        for (String elemento2 : listaTablaSimbolos.get(globalHash)) {
+            if (elemento2.contains(var.toString())) {             //Si el nombre de la variable está en elglobalHash se activa la bandera
+                palabraEncontrada = true;
+                break;                                          // Sale si encuentra la palabra
+            }
+
+        }
+
+        if (!palabraEncontrada ) {                                                          
+            System.out.println("Error semántico: Variable no existe en el alcance: " + var.toString());
+       }else {
+            // Si el scope actual (currentHash) existe en la tabla de símbolos
+            if (listaTablaSimbolos.containsKey(currentHash)) {
+                ArrayList<String> contexto = listaTablaSimbolos.get(currentHash);
+
+                // Buscar la variable en el contexto actual
+                for (String entrada : contexto) {
+                    if (entrada.contains("Nombre Identificador: " + var.toString())) {                                                                                                                                      
+                        int tipoIndex = entrada.indexOf("Tipo: "); //Se extrae el tipo de dato de la variable
+                        String tipoVariable = entrada.substring(tipoIndex + 6);  // 6 es la longitud de "Tipo: "
+                        partesTablaSimbolos = tipoVariable.split(" ");
+                        // Ahora tienes el tipo de la variable
+                        System.out.println("El tipo de " + var.toString() + " es: " + partesTablaSimbolos[0]);
+                        break;  // Sale del ciclo se encuentra la variable la variable
+                    }
+                }
+            } 
+            if (listaTablaSimbolos.containsKey(globalHash)) {
+                ArrayList<String> contexto = listaTablaSimbolos.get(globalHash);
+
+                // Buscar la variable en el contexto actual
+                for (String entrada : contexto) {
+                    if (entrada.contains("Nombre Identificador: " + var.toString())) {
+                        // Encontraste la entrada de la variable
+                        // Ahora extrae el tipo
+                        int tipoIndex = entrada.indexOf("Tipo: ");
+                        String tipoVariable = entrada.substring(tipoIndex + 6);  // 6 es la longitud de "Tipo: "
+                        partesTablaSimbolos = tipoVariable.split(" ");    
+                        // Ahora tienes el tipo de la variable
+                        System.out.println("El tipo de " + var.toString() + " es: " + partesTablaSimbolos[0]);
+                        break; // Sale del ciclo se encuentra la variable la variable
+                    }
+                }
+            }
+            else {
+                System.out.println("Error: Contexto actual no encontrado en la tabla de símbolos");
+            }
+            res = " :" + partesTablaSimbolos[0];        
+            }
+         return res;   
+    }
+
+    public String verificarTipoExpresionAritmetica(String it, String c){
+        String[] partesOperando1 = it.toString().split(":"); 
+        String[] partesOperando2 = c.toString().substring(1).split(":");
+        boolean flag = false;
+        String tipoOperacion = "null";
+        System.out.println("TipoParte1: " + partesOperando1[1] );
+        System.out.println("TipoParte2: " + partesOperando2[1] );
+        if(!(partesOperando1[1].equals("Numera") || partesOperando1[1].equals("NumeraDecimus"))){  //Si el tipo del primer operando no es int o float
+            System.out.println("Operando Inválido, no es Int o Float, Revise:" + partesOperando1[0] );
+            flag = true;
+        }
+        if(!(partesOperando2[1].equals("Numera") || partesOperando2[1].equals("NumeraDecimus")  || partesOperando2[1].equals("Empty"))){  //Si el tipo del segundo operando no es int o float
+            System.out.println("Operando Inválido, no es Int o Float, Revise:" + partesOperando2[0] );
+            flag = true;
+        }
+
+        if(!(!flag && (partesOperando2[1].equals(partesOperando1[1]) || partesOperando2[1].equals("Empty")) )){  //Si ambos tipos no son iguales o el segundo operando no es vacío
+            System.out.println("Operandos Inválidos, Deben ser del mismo tipo. Revise el operando:" + partesOperando1[0]);
+        }else{
+              tipoOperacion = partesOperando1[1];
+
+        }
+        return tipoOperacion;
+    }
+
+    public String verificarTipoExpresionAritmeticaDiv(String it, String c){
+        String[] partesOperando1 = it.toString().split(":"); 
+        String[] partesOperando2 = c.toString().substring(1).split(":");
+        boolean flag = false;
+        String tipoOperacion = "null";
+        System.out.println("TipoParte1: " + partesOperando1[1] );
+        System.out.println("TipoParte2: " + partesOperando2[1] );
+        if(!(partesOperando1[1].equals("Numera") || partesOperando1[1].equals("NumeraDecimus"))){  //Si el tipo del primer operando no es int o float
+            System.out.println("Operando Inválido, no es Int o Float, Revise:" + partesOperando1[0] );
+            flag = true;
+        }
+        if(!(partesOperando2[1].equals("Numera") || partesOperando2[1].equals("NumeraDecimus")  || partesOperando2[1].equals("Empty"))){  //Si el tipo del segundo operando no es int o float
+            System.out.println("Operando Inválido, no es Int o Float, Revise:" + partesOperando2[0] );
+            flag = true;
+        }
+        if(partesOperando2[0].equals("0")){
+            System.out.println("División entre cero encontrada. Revise el operando." );
+            flag = true;
+        }
+
+        if(!(!flag && (partesOperando2[1].equals(partesOperando1[1]) || partesOperando2[1].equals("Empty")) )){  //Si ambos tipos no son iguales o el segundo operando no es vacío
+           System.out.println("Operandos Inválidos, Deben ser del mismo tipo. Revise el operando:" + partesOperando1[0]);
+        }else{
+              tipoOperacion = partesOperando1[1];     
+        }
+        return tipoOperacion;
+    }
+
+
+
+
+
+
+
+
 :}
 
 
@@ -107,7 +232,7 @@ start with encantamiento;
 /* Área 3 - Reglas Semánticas */
 
 encantamiento ::=   {:
-                        //System.out.println("PARSER: Inicio programa\n");
+                        //System.out.println("Inicio programa\n");
                         ArrayList<String> lista = new ArrayList<String>();
                         String tipoTabla = "Globales";
                         lista.add(tipoTabla);
@@ -159,8 +284,8 @@ hechizo ::=  hechizo_encabezado PARENL lista_ingredientes PARENR KEYL conjuros K
 ;
 
 esencia ::= NUMERA                              {:RESULT = "Numera"; :}
-                | NUMERADECIMUS                 {:RESULT = "Numera Decimus"; :}
-                | SINOX                         {:RESULT = "Sinox"; :}
+                | NUMERADECIMUS                 {:RESULT = "NumeraDecimus"; :}
+                | SINOX                         {:RESULT = "SiNox"; :}
                 | RUNA                          {:RESULT = "Runa"; :}
                 | RUNAS                         {:RESULT = "Runas"; :}
 ;
@@ -171,10 +296,12 @@ creacion_ingredientes ::= GLOBALIO SPACEGATO esencia:e SPACEGATO nombre_ingredie
                 | error DOTCOMMA
 ;
                 
-lista_ingredientes ::= esencia SPACEGATO nombre_ingrediente ritual_ingredientes |
+lista_ingredientes ::= esencia SPACEGATO nombre_ingrediente ritual_ingredientes //Averiguar que esencia y nombre_ingrediente sean del mmismo tipo
+                |
 ;
 
-ritual_ingredientes ::= COMMA esencia SPACEGATO nombre_ingrediente ritual_ingredientes |
+ritual_ingredientes ::= COMMA esencia SPACEGATO nombre_ingrediente ritual_ingredientes //Averiguar que esencia y nombre_ingrediente sean del mmismo tipo
+                |
 ;
 
 hechizo_principal_encabezado ::= SPACEGATO HECHIZOPRINCIPAL                                         {:
@@ -207,7 +334,7 @@ conjuro ::= creacion_ingredientes:Ci                                            
             | conjuro_confractus:cc                                                                        //{: listaTablaSimbolos.get(currentHash).add(cc.toString()); :} 
             | conjuro_leer:cl                                                                              //{: listaTablaSimbolos.get(currentHash).add(cl.toString()); :}                                                                             
             | conjuro_escribir:ce                                                                          //{: listaTablaSimbolos.get(currentHash).add(ce.toString()); :} 
-            | invocacion_funcion DOTCOMMA
+            | invocacion_funcion DOTCOMMA //Averiguar que el nombre de la función este en el currentHash de la tabla de Simbolos
             | nombre_ingrediente PLUSPLUS DOTCOMMA
             | nombre_ingrediente MINUSMINUS DOTCOMMA
             /*| runica*/
@@ -216,8 +343,8 @@ conjuro ::= creacion_ingredientes:Ci                                            
 
 
 
-encanto ::= conjuro_arcano
-            | conjuro_relacional
+encanto ::= conjuro_arcano:c    {: System.out.println("Valor de Encanto= " + c); :}//si c es null, mostrar error
+            | conjuro_relacional 
             | ritual_logico
             
 ;
@@ -306,28 +433,54 @@ conjuro_escribir ::= ESCRIBIO PARENL encanto PARENR DOTCOMMA
 ;
 
 
-conjuro_arcano ::= invocacion_term conjuro_arcano_prima 
+conjuro_arcano ::= invocacion_term:it conjuro_arcano_prima:c                            {:           
+                                                                                        String[] partesOperando1 = it.toString().split(":"); 
+                                                                                        String[] partesOperando2 = c.toString().substring(1).split(":");
+                                                                                        boolean flag = false;
+                                                                                        String tipoOperacion = "null";
+                                                                                        System.out.println("TipoParte1: " + partesOperando1[1] );
+                                                                                        System.out.println("TipoParte2: " + partesOperando2[1] );
+                                                                                        if(!(partesOperando1[1].equals("Numera") || partesOperando1[1].equals("NumeraDecimus")|| (partesOperando1[1].equals("SiNox") && partesOperando2[1].equals("Empty")) )){  //Si el tipo del primer operando no es int o float o no cumple que el primer operando sea un Bool y el segundo un Empty
+                                                                                            System.out.println("Operando Inválido, no es Int o Float, Revise:" + partesOperando1[0] );
+                                                                                            flag = true;
+                                                                                        }
+                                                                                        if(!(partesOperando2[1].equals("Numera") || partesOperando2[1].equals("NumeraDecimus")  || partesOperando2[1].equals("Empty"))){  //Si el tipo del segundo operando no es int o float o vacio
+                                                                                            System.out.println("Operando Inválido, no es Int o Float, Revise:" + partesOperando2[0] );
+                                                                                            flag = true;
+                                                                                        }
+
+                                                                                        if(!(!flag && (partesOperando2[1].equals(partesOperando1[1]) || partesOperando2[1].equals("Empty")) )){  //Si ambos tipos no son iguales o el segundo operando no es vacío
+                                                                                            System.out.println("Operandos Inválidos, Deben ser del mismo tipo. Revise el operando:" + partesOperando1[0]);
+                                                                                        }else{
+                                                                                              tipoOperacion = partesOperando1[1];
+                                                                                              
+                                                                                        }
+                                                                                        
+                                                                                        System.out.println("====>Tipo de la Operación Combinada: " + tipoOperacion);
+                                                                                        RESULT = tipoOperacion ; 
+                                                                                        :}
             |
 ;
 
-conjuro_arcano_prima ::= PLUS invocacion_term:it conjuro_arcano_prima        {::}   
-            | MINUS invocacion_term conjuro_arcano_prima
-            | MUL invocacion_term conjuro_arcano_prima
-            | DIV invocacion_term conjuro_arcano_prima
-            | MOD invocacion_term conjuro_arcano_prima
-            | POW invocacion_term conjuro_arcano_prima
-            |   
+conjuro_arcano_prima ::= PLUS invocacion_term:it conjuro_arcano_prima:c                 {:RESULT = "+:"  + verificarTipoExpresionAritmetica(it.toString(),c.toString());  :}
+            | MINUS invocacion_term:it conjuro_arcano_prima:c                           {:RESULT = "-:"  + verificarTipoExpresionAritmetica(it.toString(),c.toString()); :}
+            | MUL invocacion_term:it conjuro_arcano_prima:c                             {:RESULT = "*:"  + verificarTipoExpresionAritmetica(it.toString(),c.toString()) ;:}
+            | DIV invocacion_term:it conjuro_arcano_prima:c                             {:RESULT = "/:"  + verificarTipoExpresionAritmeticaDiv(it.toString(),c.toString()) ;:}
+            | MOD invocacion_term:it conjuro_arcano_prima:c                             {:RESULT = "%:"  + verificarTipoExpresionAritmeticaDiv(it.toString(),c.toString()) ;:}
+            | POW invocacion_term:it conjuro_arcano_prima:c                             {:RESULT = "^:"  + verificarTipoExpresionAritmetica(it.toString(),c.toString()) ;:}
+            |                                                                           {:RESULT = "x:Empty"; :}
+
 ;
 
-invocacion_term ::= invocacion_factor:f                     {: RESULT = f; :}
+invocacion_term ::= invocacion_factor:f                                              {: RESULT = f; :}
 ;
 
-invocacion_factor ::= nombre_ingrediente:n                  {: RESULT = n; :}
-            | Numera:n                                      {: RESULT = n; :}
-            | NumeraDecimus:nd                              {: RESULT = nd; :}
-            | SiNox:sn                                      {: RESULT = sn; :}                                                                                 //Podría eliminarse
-            | PARENL encanto:e PARENR                       {: RESULT = e; :}
-            | Runas:r                                       {: RESULT = r; :}
+invocacion_factor ::= nombre_ingrediente:n                  {: RESULT = verificarTipoVariable(n.toString()); :}
+            | Numera:n                                      {: RESULT = n  + ":Numera";          :}
+            | NumeraDecimus:nd                              {: RESULT = nd + ":NumeraDecimus";   :}
+            | SiNox:sn                                      {: RESULT = sn + ":SiNox";           :}                                                                                 //Podría eliminarse
+            | PARENL encanto:e PARENR                       {: RESULT = e;                       :}
+            | Runas:r                                       {: RESULT = r + ":Runas";            :}
             | invocacion_funcion
           /*| Runas*/
 ;
@@ -340,11 +493,23 @@ encantos ::= encantos COMMA encanto
             | encanto           
 ;
 
-conjuro_relacional ::= conjuro_arcano encantamiento_relacional conjuro_arcano
+conjuro_relacional ::= conjuro_arcano:c1 encantamiento_relacional:e conjuro_arcano:c2                     {:System.out.println("C1 es:" + c1.toString() + "y C2 es: " + c2.toString());:}
+                        | SiNox encantamiento_relacional SiNox                                            {:System.out.println("Relacional es Bool");:}
+                        | nombre_ingrediente:n1 encantamiento_relacional:e nombre_ingrediente:n2          {:verificarTipoVariable(n1.toString());verificarTipoVariable(n2.toString());:}               
+                        //| nombre_ingrediente:n1 encantamiento_relacional:e  conjuro_arcano:c2
+                        //| conjuro_arcano:c1 encantamiento_relacional:e nombre_ingrediente:n2
 ;
 
-encantamiento_relacional ::= LESS | LESSEQ | GREATER | GREATEREQ | EQEQ | DIFF
+encantamiento_relacional ::= LESS       {: RESULT = "LESS"; :}
+                            | LESSEQ    {: RESULT = "LESSEQ"; :}
+                            | GREATER   {: RESULT = "GREATER"; :}
+                            | GREATEREQ {: RESULT = "GREATEREQ"; :}
+   
+                            | EQEQ      {: RESULT = "EQEQ"; :} 
+                            | DIFF      {: RESULT = "DIFF"; :}
 ;
+
+
 
 ritual_logico ::= conjuro_logico cola_conjuro_logico        ///Por arreglar
                 
@@ -374,6 +539,13 @@ casos_switch ::= casos_switch caso_switch
 caso_switch  ::= SIAPARECE SPACEGATO encanto DOUBLEDOT conjuros 
            // | SIAPARECE SPACEGATO encanto DOUBLEDOT conjuros conjuro_confractus
 ;
+
+
+
+
+
+
+
 
 /*
 //////Estos de abajo no funcionan:
