@@ -123,7 +123,7 @@ Runas = [:jletterdigit:]*
     "=="                                        { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.EQEQ));                      return symbol(sym.EQEQ); }
     "!="                                        { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.DIFF));                      return symbol(sym.DIFF); }
     "!"                                         { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.NOT));                       return symbol(sym.NOT); }
-    "@"                                         { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.NOTB));                      return symbol(sym.NOTB); }
+    "@"                                         { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.ARROBA));                    return symbol(sym.ARROBA); }
     "&&"                                        { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.AND));                       return symbol(sym.AND); }
     "||"                                        { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.OR));                        return symbol(sym.OR); }   
 
