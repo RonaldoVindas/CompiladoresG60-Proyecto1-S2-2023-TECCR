@@ -137,9 +137,9 @@ Runas = [:jletterdigit:]*
     "<-"                                        { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.ASSIGN));                    return symbol(sym.ASSIGN); }  
     ";"                                         { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.DOTCOMMA));                  return symbol(sym.DOTCOMMA); }  
     "=>"                                        { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.DOUBLEDOT));                 return symbol(sym.DOUBLEDOT); }
-    "//"                                        { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.COMMENT));                   return symbol(sym.COMMENT); }
-    "/*"                                        { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.MULCOMMENTL));                return symbol(sym.MULCOMMENTL); }
-    "*/"                                        { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.MULCOMMENTR));return symbol(sym.MULCOMMENTR); }
+//    "//"                                        { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.COMMENT));                   return symbol(sym.COMMENT); }
+//    "/*"                                        { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.MULCOMMENTL));                return symbol(sym.MULCOMMENTL); }
+//    "*/"                                        { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.MULCOMMENTR));return symbol(sym.MULCOMMENTR); }
 
  /* comments */
   {Comment}                                     { /* ignore */ }                   //No se ha tocado para que funcione, pero se supone es "RUNAS"

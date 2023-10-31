@@ -141,9 +141,11 @@ public static void Buscarlexemas() throws IOException{
     
     
     
-    //generarScannerParser();
+    
+  //generarScannerParser();
     //Buscarlexemas();
-    comprobarGramatica();
+ 
+  comprobarGramatica();
 
     }
     

@@ -10,8 +10,7 @@ public class TablaSimbolos {
     }
 
     public void addSymbol(String id, ArrayList<String> lista) {
-        simbolos.put(id, lista);
-         
+        simbolos.put(id, lista);        
     }
 
     public ArrayList<String> lookupSymbol(String id) {
