@@ -1203,107 +1203,107 @@ public class Lexer implements java_cup.runtime.Scanner {
           // fall through
           case 66: break;
           case 3:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.NOT));                       return symbol(sym.NOT);
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.NOT));  */                     return symbol(sym.NOT);
             }
           // fall through
           case 67: break;
           case 4:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) );string.setLength(0); yybegin(STRING);
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) );*/                                                      string.setLength(0); yybegin(STRING);
             }
           // fall through
           case 68: break;
           case 5:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.SPACEGATO));                 return symbol(sym.SPACEGATO);
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.SPACEGATO)); */                return symbol(sym.SPACEGATO);
             }
           // fall through
           case 69: break;
           case 6:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.NOMBREINGREDIENTE));          return symbol(sym.NOMBREINGREDIENTE, yytext());
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.NOMBREINGREDIENTE));*/          return symbol(sym.NOMBREINGREDIENTE, yytext());
             }
           // fall through
           case 70: break;
           case 7:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.MOD));                       return symbol(sym.MOD);
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.MOD));*/                       return symbol(sym.MOD);
             }
           // fall through
           case 71: break;
           case 8:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.PARENL));                    return symbol(sym.PARENL);
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.PARENL));*/                    return symbol(sym.PARENL);
             }
           // fall through
           case 72: break;
           case 9:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.PARENR));                    return symbol(sym.PARENR);
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.PARENR));*/                    return symbol(sym.PARENR);
             }
           // fall through
           case 73: break;
           case 10:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.MUL));                       return symbol(sym.MUL);
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.MUL)); */                      return symbol(sym.MUL);
             }
           // fall through
           case 74: break;
           case 11:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.PLUS));                      return symbol(sym.PLUS);
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.PLUS));*/                      return symbol(sym.PLUS);
             }
           // fall through
           case 75: break;
           case 12:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.COMMA));                     return symbol(sym.COMMA);
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.COMMA));*/                     return symbol(sym.COMMA);
             }
           // fall through
           case 76: break;
           case 13:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.MINUS));                     return symbol(sym.MINUS);
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.MINUS)); */                    return symbol(sym.MINUS);
             }
           // fall through
           case 77: break;
           case 14:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.DIV));                       return symbol(sym.DIV);
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.DIV));*/                       return symbol(sym.DIV);
             }
           // fall through
           case 78: break;
           case 15:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.NUMERALITERAL));             return symbol(sym.NUMERALITERAL, yytext());
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.NUMERALITERAL));*/             return symbol(sym.NUMERALITERAL, yytext());
             }
           // fall through
           case 79: break;
           case 16:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.DOTCOMMA));                  return symbol(sym.DOTCOMMA);
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.DOTCOMMA)); */                 return symbol(sym.DOTCOMMA);
             }
           // fall through
           case 80: break;
           case 17:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.LESS));                      return symbol(sym.LESS);
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.LESS));*/                   return symbol(sym.LESS);
             }
           // fall through
           case 81: break;
           case 18:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.EQ));                        return symbol(sym.EQ);
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.EQ));*/                        return symbol(sym.EQ);
             }
           // fall through
           case 82: break;
           case 19:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.GREATER));                   return symbol(sym.GREATER);
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.GREATER));*/                   return symbol(sym.GREATER);
             }
           // fall through
           case 83: break;
           case 20:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.ARROBA));                    return symbol(sym.ARROBA);
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.ARROBA));*/                    return symbol(sym.ARROBA);
             }
           // fall through
           case 84: break;
           case 21:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.POW));                       return symbol(sym.POW);
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.POW));*/                       return symbol(sym.POW);
             }
           // fall through
           case 85: break;
           case 22:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.KEYL));                      return symbol(sym.KEYL);
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.KEYL)); */                     return symbol(sym.KEYL);
             }
           // fall through
           case 86: break;
           case 23:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.KEYR));                      return symbol(sym.KEYR);
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.KEYR)); */                     return symbol(sym.KEYR);
             }
           // fall through
           case 87: break;
@@ -1325,67 +1325,67 @@ public class Lexer implements java_cup.runtime.Scanner {
           // fall through
           case 90: break;
           case 27:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.DIFF));                      return symbol(sym.DIFF);
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.DIFF)); */                     return symbol(sym.DIFF);
             }
           // fall through
           case 91: break;
           case 28:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.AND));                       return symbol(sym.AND);
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.AND));*/                       return symbol(sym.AND);
             }
           // fall through
           case 92: break;
           case 29:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.PLUSPLUS));                  return symbol(sym.PLUSPLUS);
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.PLUSPLUS));*/                  return symbol(sym.PLUSPLUS);
             }
           // fall through
           case 93: break;
           case 30:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.MINUSMINUS));                return symbol(sym.MINUSMINUS);
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.MINUSMINUS));*/                return symbol(sym.MINUSMINUS);
             }
           // fall through
           case 94: break;
           case 31:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.RUNASTRING));                return symbol(sym.RUNASTRING, yytext());
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.RUNASTRING));  */              return symbol(sym.RUNASTRING, yytext());
             }
           // fall through
           case 95: break;
           case 32:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.NUMERADECIMUSLITERAL));      return symbol(sym.NUMERADECIMUSLITERAL, yytext());
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.NUMERADECIMUSLITERAL));*/      return symbol(sym.NUMERADECIMUSLITERAL, yytext());
             }
           // fall through
           case 96: break;
           case 33:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.ASSIGN));                    return symbol(sym.ASSIGN);
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.ASSIGN));*/                    return symbol(sym.ASSIGN);
             }
           // fall through
           case 97: break;
           case 34:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.LESSEQ));                    return symbol(sym.LESSEQ);
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.LESSEQ));*/                    return symbol(sym.LESSEQ);
             }
           // fall through
           case 98: break;
           case 35:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.EQEQ));                      return symbol(sym.EQEQ);
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.EQEQ));*/                      return symbol(sym.EQEQ);
             }
           // fall through
           case 99: break;
           case 36:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.DOUBLEDOT));                 return symbol(sym.DOUBLEDOT);
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.DOUBLEDOT)); */                return symbol(sym.DOUBLEDOT);
             }
           // fall through
           case 100: break;
           case 37:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.GREATEREQ));                 return symbol(sym.GREATEREQ);
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.GREATEREQ));*/                 return symbol(sym.GREATEREQ);
             }
           // fall through
           case 101: break;
           case 38:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.SI));                     return symbol(sym.SI);
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.SI));*/                     return symbol(sym.SI);
             }
           // fall through
           case 102: break;
           case 39:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.OR));                        return symbol(sym.OR);
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.OR));*/                        return symbol(sym.OR);
             }
           // fall through
           case 103: break;
@@ -1410,107 +1410,107 @@ public class Lexer implements java_cup.runtime.Scanner {
           // fall through
           case 107: break;
           case 44:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.NOTC));                   return symbol(sym.FALSE);
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.NOTC)); */                  return symbol(sym.FALSE);
             }
           // fall through
           case 108: break;
           case 45:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.RUNA));                   return symbol(sym.RUNA);
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.RUNA)); */                  return symbol(sym.RUNA);
             }
           // fall through
           case 109: break;
           case 46:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.TRUE));                   return symbol(sym.TRUE);
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.TRUE)); */                  return symbol(sym.TRUE);
             }
           // fall through
           case 110: break;
           case 47:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.SINO));                   return symbol(sym.SINO);
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.SINO));*/                   return symbol(sym.SINO);
             }
           // fall through
           case 111: break;
           case 48:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.FALSE));                  return symbol(sym.FALSE);
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.FALSE)); */                 return symbol(sym.FALSE);
             }
           // fall through
           case 112: break;
           case 49:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.RUNAS));                  return symbol(sym.RUNAS);
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.RUNAS)); */                 return symbol(sym.RUNAS);
             }
           // fall through
           case 113: break;
           case 50:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.SINOX));                  return symbol(sym.SINOX);
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.SINOX));*/                  return symbol(sym.SINOX);
             }
           // fall through
           case 114: break;
           case 51:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.NUMERA));                 return symbol(sym.NUMERA);
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.NUMERA));*/                 return symbol(sym.NUMERA);
             }
           // fall through
           case 115: break;
           case 52:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.RECITA));                 return symbol(sym.RECITA);
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.RECITA));*/                 return symbol(sym.RECITA);
             }
           // fall through
           case 116: break;
           case 53:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.HECHIZO));                return symbol(sym.HECHIZO);
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.HECHIZO));*/                return symbol(sym.HECHIZO);
             }
           // fall through
           case 117: break;
           case 54:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.ESCRIBIO));               return symbol(sym.ESCRIBIO);
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.ESCRIBIO));*/               return symbol(sym.ESCRIBIO);
             }
           // fall through
           case 118: break;
           case 55:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.GLOBALIO));               return symbol(sym.GLOBALIO);
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.GLOBALIO));*/               return symbol(sym.GLOBALIO);
             }
           // fall through
           case 119: break;
           case 56:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.MIENTRAS));               return symbol(sym.MIENTRAS);
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.MIENTRAS));*/               return symbol(sym.MIENTRAS);
             }
           // fall through
           case 120: break;
           case 57:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.MUTACION));               return symbol(sym.MUTACION);
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.MUTACION));*/               return symbol(sym.MUTACION);
             }
           // fall through
           case 121: break;
           case 58:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.RIVIERTO));               return symbol(sym.RIVIERTO);
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.RIVIERTO)); */              return symbol(sym.RIVIERTO);
             }
           // fall through
           case 122: break;
           case 59:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.CONFRACTA));              return symbol(sym.CONFRACTA);
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.CONFRACTA));*/              return symbol(sym.CONFRACTA);
             }
           // fall through
           case 123: break;
           case 60:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.SIAPARECE));              return symbol(sym.SIAPARECE);
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.SIAPARECE));*/              return symbol(sym.SIAPARECE);
             }
           // fall through
           case 124: break;
           case 61:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.PARARANGUS));             return symbol(sym.PARARANGUS);
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.PARARANGUS));*/             return symbol(sym.PARARANGUS);
             }
           // fall through
           case 125: break;
           case 62:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.ABRACADABRA));            return symbol(sym.ABRACADABRA);
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.ABRACADABRA));  */          return symbol(sym.ABRACADABRA);
             }
           // fall through
           case 126: break;
           case 63:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.NUMERADECIMUS));          return symbol(sym.NUMERADECIMUS);
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.NUMERADECIMUS));*/          return symbol(sym.NUMERADECIMUS);
             }
           // fall through
           case 127: break;
           case 64:
-            { System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.HECHIZOPRINCIPAL));       return symbol(sym.HECHIZOPRINCIPAL);
+            { /*System.out.println("Símbolo: " + yytext() + " Línea: " + String.valueOf(yyline + 1) + " Tipo: " + symbol(sym.HECHIZOPRINCIPAL));*/       return symbol(sym.HECHIZOPRINCIPAL);
             }
           // fall through
           case 128: break;

@@ -8,6 +8,9 @@ import java.util.Map;
 import java.util.Hashtable;
 import java.util.LinkedList;
 import java.util.Stack;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
+import java.io.IOException;
 
 import java_cup.runtime.*;
 
@@ -24,9 +27,11 @@ action code{:
     String currentHash = "globalTS";
     String globalHash = "globalTS"; 
 
-    //Lista de Tipos de Función
+    //Lista de Tablas de Simbolos de Función
     HashMap<String, String> tiposTablaSimbolos = new HashMap<String, String>();
     String currentType = ""; 
+
+    
 
     //StringBuilder para Código de 3-Direcciones
     StringBuffer codigo3D = new StringBuffer();
@@ -67,6 +72,22 @@ action code{:
         System.out.println("================ Imprimiendo Código de 3 Direcciones ================");
         System.out.println(codigo3D.toString());
         System.out.println("\n================ ============================ ================");
+        System.out.println("\n\n\n");
+        System.out.println("\n================ Exportando Código de 3 Direcciones ================");    
+        String rutaArchivo = "F:/Ronaldo/TEC/Semestre 12 - 2023/Compiladores e Interpretes/Proyectos/Proyecto 1/Local/codigo3D.txt";
+        
+        try {   
+            FileWriter fileWriter = new FileWriter(rutaArchivo); //Crea un FileWriter para escribir en el archivo 
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter); //Envuelve el FileWriter en un BufferedWriter,(Nota: al parecer mejora el rendimiento)
+            bufferedWriter.write(codigo3D.toString()); //Escribe el contenido del StringBuffer en el archivo
+            bufferedWriter.close(); //Se cierra el BufferedWriter y el FileWriter
+            fileWriter.close();
+            System.out.println("\n>>> Código de 3 Direcciones exportado correctamente. Revise: " + rutaArchivo);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
     }
     
     
@@ -81,20 +102,20 @@ action code{:
         for (String elemento : listaTablaSimbolos.get(currentHash)) {
             if (elemento.contains(variable.toString())) {              //Si el nombre de la variable está en el currentHash se activa la bandera
                 palabraEncontrada = true;
-                break;                                                // Sale si encuentra la palabra
+                break;                                                //Sale si encuentra la palabra
 
             }
         }
         for (String elemento2 : listaTablaSimbolos.get(globalHash)) {
             if (elemento2.contains(variable.toString())) {             //Si el nombre de la variable está en elglobalHash se activa la bandera
                 palabraEncontrada = true;
-                break;                                          // Sale si encuentra la palabra
+                break;                                          //Sale si encuentra la palabra
             }
 
         }
 
         if (!palabraEncontrada ) {                                                          
-            System.out.println("Error semántico: La Variable: <<" + variable.toString() + ">> no existe en el alcance." );
+            System.out.println("Error Semántico: La Variable: <<" + variable.toString() + ">> no existe en el alcance." );
         }else {
             //Si el scope actual (currentHash) existe en la tabla de símbolos
             if (listaTablaSimbolos.containsKey(currentHash)) {
@@ -104,10 +125,10 @@ action code{:
                 for (String entrada : contexto) {
                     if (entrada.contains("Nombre Identificador: " + variable.toString())) {                                                                                                                                      
                         int tipoIndex = entrada.indexOf("Tipo: "); //Se extrae el tipo de dato de la variable
-                        String tipoVariable = entrada.substring(tipoIndex + 6);  // 6 es la longitud de "Tipo: "
+                        String tipoVariable = entrada.substring(tipoIndex + 6);  //6 es la longitud de "Tipo: "
                         partesTablaSimbolos = tipoVariable.split(" ");
                         // Ahora tiene el tipo de la variable
-                        System.out.println("El tipo de " + variable.toString() + " es: " + partesTablaSimbolos[0]);
+                        //System.out.println("El tipo de " + variable.toString() + " es: " + partesTablaSimbolos[0]);
                         break;  // Sale del ciclo se encuentra la variable la variable
                     }
                 }
@@ -124,13 +145,13 @@ action code{:
                         String tipoVariable = entrada.substring(tipoIndex + 6);  // 6 es la longitud de "Tipo: "
                         partesTablaSimbolos = tipoVariable.split(" ");    
                         // Ahora tiene el tipo de la variable
-                        System.out.println("El tipo de " + variable.toString() + " es: " + partesTablaSimbolos[0]);
+                        //System.out.println("El tipo de " + variable.toString() + " es: " + partesTablaSimbolos[0]);
                         break; //Sale del ciclo si encuentra la variable la variable
                     }
                 }
             }
             else {
-                System.out.println("Error: Contexto actual no encontrado en la tabla de símbolos");
+                System.out.println("Error: Variable en Contexto Actual no encontrado en la tabla de símbolos");
             }
             res = partesTablaSimbolos[0];        
             }
@@ -143,16 +164,15 @@ public boolean verificarVariableDuplicada(String var){
         String[] partesTablaSimbolos = null;
         boolean res = false;
         for (String elemento : listaTablaSimbolos.get(currentHash)) {
-            if (elemento.contains(variable.toString())) {              //Si el nombre de la variable está en el currentHash se activa la bandera
+            if (elemento.contains(variable.toString())) {               //Si el nombre de la variable está en el currentHash se activa la bandera
                 res = true;
-                break;                                                // Sale si encuentra la palabra
-
+                break;                                                  //Sale si encuentra la palabra
             }
         }
         for (String elemento2 : listaTablaSimbolos.get(globalHash)) {
-            if (elemento2.contains(variable.toString())) {             //Si el nombre de la variable está en elglobalHash se activa la bandera
+            if (elemento2.contains(variable.toString())) {              //Si el nombre de la variable está en elglobalHash se activa la bandera
                 res = true;
-                break;                                          // Sale si encuentra la palabra
+                break;                                                  //Sale si encuentra la palabra
             }
 
         }
@@ -168,6 +188,7 @@ public boolean verificarVariableDuplicada(String var){
         }
         return res;
     }
+
     public String verificarExpresionRelacional(String expr){
         String res = "";
         switch(expr) {
@@ -199,12 +220,12 @@ public boolean verificarVariableDuplicada(String var){
 
     public String verificarTipoExpresionAritmetica(String it, String c, int currentTemporal){
         String[] partesOperando1 = it.toString().split(":"); 
-        System.out.println("AAAAAAAAAA: " + c.toString().substring(1) );
         String[] partesOperando2 = c.toString().split(":");
         boolean flag = false;
         String tipoOperacion = "null";
-        System.out.println("TipoParte1: " + partesOperando1[1] );
-        System.out.println("TipoParte2: " + partesOperando2[1] );
+        //System.out.println("TipoParte1: " + partesOperando1[1] );
+        //System.out.println("TipoParte2: " + partesOperando2[1] );
+
         if(!(partesOperando1[1].equals("Numera") || partesOperando1[1].equals("NumeraDecimus"))){  //Si el tipo del primer operando no es int o float
             System.out.println("Operando Inválido, no es Int o Float, Revise:" + partesOperando1[0] );
             flag = true;
@@ -217,7 +238,7 @@ public boolean verificarVariableDuplicada(String var){
         if(!(!flag && (partesOperando2[1].equals(partesOperando1[1]) || partesOperando2[1].equals("Empty")) )){  //Si ambos tipos no son iguales o el segundo operando no es vacío
             System.out.println("Operandos Inválidos, Deben ser del mismo tipo. Revise el operando:" + partesOperando1[0]);
         }else{
-            // String miTemp = "t"+currentTemp++;
+            //String miTemp = "t"+currentTemp++;
              String miTemp = "t"+ currentTemporal;
              if(!(partesOperando2[1].equals("Empty"))){
                 this.codigo3D.append("\n" + miTemp + "=" + partesOperando1[2] + partesOperando2[0] + "t" + (this.currentTemp - 1));   
@@ -232,13 +253,12 @@ public boolean verificarVariableDuplicada(String var){
     }
 
     public String verificarTipoExpresionAritmeticaDiv(String it, String c, int currentTem){
-        String[] partesOperando1 = it.toString().split(":"); 
-        System.out.println("AAAAAAAAAA: " + c.toString().substring(1) );
+        String[] partesOperando1 = it.toString().split(":");      
         String[] partesOperando2 = c.toString().split(":");
         boolean flag = false;
         String tipoOperacion = "null";
-        System.out.println("TipoParte1: " + partesOperando1[1] );
-        System.out.println("TipoParte2: " + partesOperando2[1] );
+        //System.out.println("TipoParte1: " + partesOperando1[1] );
+        //System.out.println("TipoParte2: " + partesOperando2[1] );
         if(!(partesOperando1[1].equals("Numera") || partesOperando1[1].equals("NumeraDecimus"))){  //Si el tipo del primer operando no es int o float
             System.out.println("Operando Inválido, no es Int o Float, Revise:" + partesOperando1[0] );
             flag = true;
@@ -274,8 +294,8 @@ public boolean verificarVariableDuplicada(String var){
         String[] partesOperando2 = c.toString().split(":");
         boolean flag = false;
         String tipoOperacion = "null";
-        System.out.println("TipoParte1: " + partesOperando1 );
-        System.out.println("TipoParte2: " + partesOperando2 );
+        //System.out.println("TipoParte1: " + partesOperando1 );
+        //System.out.println("TipoParte2: " + partesOperando2 );
         if(!(partesOperando1[0].equals("Numera") || partesOperando1[0].equals("NumeraDecimus"))){  //Si el tipo del primer operando no es int o float
             System.out.println("Operando Inválido, no es Int o Float, Revise:" + partesOperando1 );
             flag = true;
@@ -298,7 +318,7 @@ public boolean verificarVariableDuplicada(String var){
 
 
 parser code {:
-    // Connect this parser to a scanner!
+    //Connect this parser to a scanner!
     Lexer lex;
     
     public Sintax(Lexer lex){
@@ -306,11 +326,11 @@ parser code {:
     }
 
     public void syntax_error(Symbol s){
-    System.out.println("Error de Sintaxis: Tipo: Recuperable " + s.value + " Linea: "+ (s.left+1) + " Columna: " + (s.right+1) );
+        System.out.println("Error de Sintaxis: Tipo: Recuperable " + s.value + " Linea: "+ (s.left+1) + " Columna: " + (s.right+1) );
     }
 
     public void unrecovered_syntax_error(Symbol s) throws java.lang.Exception{
-    System.out.println("Error de Sintaxis Tipo: No-Recuperable " + s.value + " Linea: "+ (s.left+1) + " Columna: " + (s.right+1) + "");
+        System.out.println("Error de Sintaxis Tipo: No-Recuperable " + s.value + " Linea: "+ (s.left+1) + " Columna: " + (s.right+1) + "");
     }
     
 :}
@@ -376,7 +396,7 @@ encantamiento ::=   {:
                         listaTablaSimbolos.put(currentHash, lista);
                     :}
                         
-                ABRACADABRA hechizos hechizo_principal {:imprimirTablaSimbolos(); imprimirCodigo3Direcciones(); System.out.println("-=-=-=-=- fin de ejecución -=-=-=-=-");:} ///Se debe imprimir la lista de Símbolos
+                ABRACADABRA hechizos hechizo_principal {: System.out.println("-=-=-=-=- fin de ejecución -=-=-=-=-"); imprimirTablaSimbolos(); imprimirCodigo3Direcciones(); :}
                 | error
 ;
 
@@ -414,11 +434,10 @@ hechizos ::= hechizos hechizo
 hechizo_encabezado ::= SPACEGATO HECHIZO SPACEGATO esencia:e SPACEGATO nombre_ingrediente:n 
                                                                                                 {:
                                                                                                  String res = verificarTipoFuncion(n.toString());
-                                                                                                 System.out.println("REEEES:" + res);
+                                                                                                 //System.out.println("REEEES:" + res);
                                                                                                  if(!res.equals("null") && currentFunc > 1){
                                                                                                     System.out.println("Error Semántico: Función ya se encuentra declarada.");
                                                                                                  }else{
-                                                                                                        
                                                                                                         //System.out.println("Inicio de Función + n.toString()");
                                                                                                         String type = e.toString();
                                                                                                         if(!(type.equals("Numera") || type.equals("NumeraDecimus") || type.equals("SiNox") || type.equals("Runas") || type.equals("Runa"))){
@@ -431,7 +450,7 @@ hechizo_encabezado ::= SPACEGATO HECHIZO SPACEGATO esencia:e SPACEGATO nombre_in
                                                                                                             String tipoTabla = "Funcion";
                                                                                                             lista.add(tipoTabla);
                                                                                                             listaTablaSimbolos.put(currentHash, lista); 
-                                                                                                            tiposTablaSimbolos.put(currentHash,currentType);
+                                                                                                            tiposTablaSimbolos.put(currentHash, currentType);
 
                                                                                                             //Creación de Codigo 3-D
                                                                                                             stackLlaves.push(currentFunc);   
@@ -527,7 +546,11 @@ hechizo_principal_encabezado ::= SPACEGATO HECHIZOPRINCIPAL                     
                                                                                                             :}
 ;
 //Función Main
-hechizo_principal ::=  hechizo_principal_encabezado PARENL PARENR KEYL conjuros:c KEYR                           
+hechizo_principal ::=  hechizo_principal_encabezado PARENL PARENR KEYL conjuros:c KEYR                      {:
+                                                                                                            //Creación de Codigo 3-D
+                                                                                                            codigo3D.append("\n" +"final_bloque_main:");
+                                                                                                            codigo3D.append("\n" +"final_func_main:");    
+                                                                                                            :}     
           | error KEYR
                
 ;
@@ -560,7 +583,7 @@ conjuro ::= creacion_ingredientes:Ci                                            
 encanto ::= conjuro_arcano:c                                                                                    {:if(c.equals("null") || c == null){ //si c es null, mostrar error
                                                                                                                     System.out.println("Error Semántico: Valor de Expresión Aritmética es nulo."); 
                                                                                                                 }else{
-                                                                                                                    System.out.println("///////////////////////" + c.toString()); 
+                                                                                                                    //System.out.println("///////////////////////" + c.toString()); 
                                                                                                                      
                                                                                                                     RESULT = c;
                                                                                                                 }  
@@ -569,14 +592,14 @@ encanto ::= conjuro_arcano:c                                                    
             | conjuro_relacional:c1                                                                             {:if(c1.equals("null")){ //si c es null, mostrar error
                                                                                                                     System.out.println("Error Semántico: Valor de Expresión Relacional es null."); 
                                                                                                                  }else{
-                                                                                                                    System.out.println("::::::>" + c1.toString()); 
+                                                                                                                    //System.out.println("::::::>" + c1.toString()); 
                                                                                                                     RESULT = c1;
                                                                                                                  } 
                                                                                                                 :}
             | ritual_logico:r                                                                                   {:if(r.equals("null")){ //si c es null, mostrar error
                                                                                                                     System.out.println("Error Semántico: Valor de Expresión Lógica es null."); 
                                                                                                                  }else{
-                                                                                                                    System.out.println("::::::>" + r.toString()); 
+                                                                                                                    //System.out.println("::::::>" + r.toString()); 
                                                                                                                     RESULT = r;
                                                                                                                  }
                                                                                                                     :}
@@ -587,17 +610,17 @@ encanto ::= conjuro_arcano:c                                                    
 invocacion_encanto ::= esencia:e SPACEGATO nombre_ingrediente:n ASSIGN encanto:en DOTCOMMA                     {: String[] partesOperando = en.toString().split(":"); 
                                                                                                                   if(!(e.toString().equals(partesOperando[0]))){
                                                                                                                     System.out.println("Error Semántico: Tipo de Variable y Valor asignado no coinciden.");
-                                                                                                                    System.out.println("PARTESOPERANDO-1:"+partesOperando[1]);
+                                                                                                                    //System.out.println("PARTESOPERANDO-1:"+partesOperando[1]);
                                                                                                                   }else{
                                                                                                                         //Verificar si está duplicada
                                                                                                                         boolean res = verificarVariableDuplicada(n.toString());
-                                                                                                                        System.out.println("REEEES2:" + res);                                                                                                                     
+                                                                                                                        //System.out.println("REEEES2:" + res);                                                                                                                     
                                                                                                                         if(res == true){
                                                                                                                            System.out.println("Error Semántico: Variable: <<" + n.toString()+ ">> ya se encuentra declarada.");
                                                                                                                         }else{
                                                                                                                             listaTablaSimbolos.get(currentHash).add("Tipo: " + e.toString() + " Nombre Identificador: " + n.toString());
                                                                                                                             //Código 3-D
-                                                                                                                            System.out.println("CACACACAACACA:" + en.toString()); 
+                                                                                                                            //System.out.println("CACACACAACACA:" + en.toString()); 
                                                                                                                             codigo3D.append("\n" + "data_" + e.toString() + " " + n.toString());
                                                                                                                             codigo3D.append("\n" + n.toString() + "=" +  partesOperando[1].toString());
 
@@ -609,13 +632,13 @@ invocacion_encanto ::= esencia:e SPACEGATO nombre_ingrediente:n ASSIGN encanto:e
 ;
 
 //Asignación a Variable
-enlace_encanto ::= nombre_ingrediente:n ASSIGN encanto:en DOTCOMMA                                               {: System.out.println("RONAAAALDO:" + verificarTipoVariable(n.toString()));
+enlace_encanto ::= nombre_ingrediente:n ASSIGN encanto:en DOTCOMMA                                               {: 
                                                                                                                     String[] partesOperando = en.toString().split(":");                                                                                                                   
                                                                                                                     if(!(verificarTipoVariable(n.toString()).equals(partesOperando[0].toString()))){
                                                                                                                         System.out.println("Error Semántico: Tipo de Variable y Valor asignado no coinciden.");
                                                                                                                     }else{
                                                                                                                         //Código 3-D
-                                                                                                                        System.out.println("CACACACAACACA:" + en.toString()); 
+                                                                                                                        
                                                                                                                         codigo3D.append("\n" + n.toString() + "=" +  partesOperando[1].toString());
                                                                                                                     }                                                                                                                  
                                                                                                                  :}
@@ -699,13 +722,13 @@ conjuro_mutacion_encabezado ::= MUTACION PARENL nombre_ingrediente:n PARENR     
 
 
 //Switch Case
-conjuro_mutacion ::= conjuro_mutacion_encabezado:n KEYL casos_switch:cs KEYR DOTCOMMA                                 {:if(!(verificarTipoVariable(n.toString()).equals(cs.toString()))){
-                                                                                                                        System.out.println("Error Semántico: Tipo de Variable y Valor de SiAparece no coinciden.");
-                                                                                                                      }else{
-                                                                                                                        //Creación de Codigo 3-D
-                                                                                                                        int contadorfinal = stackLlaves.pop();
-                                                                                                                        codigo3D.append("\n" +"final_bloque_SWITCH_" + contadorfinal +":");
-                                                                                                                    }
+conjuro_mutacion ::= conjuro_mutacion_encabezado:n KEYL casos_switch:cs KEYR DOTCOMMA                                 {: if(!(verificarTipoVariable(n.toString()).equals(cs.toString()))){
+                                                                                                                            System.out.println("Error Semántico: Tipo de Variable y Valor de SiAparece no coinciden.");
+                                                                                                                        }else{
+                                                                                                                            //Creación de Codigo 3-D
+                                                                                                                            int contadorfinal = stackLlaves.pop();
+                                                                                                                            codigo3D.append("\n" +"final_bloque_SWITCH_" + contadorfinal +":");
+                                                                                                                        }
                                                                                                                     :}
             /*| error KEYR*/                                                                                    //Manejo de errores da problemas al generar la clase cup en el main, por eso está comentado
             /*| error*/                                                                                         //Manejo de errores da problemas al generar la clase cup en el main, por eso está comentado
@@ -725,6 +748,7 @@ casos_switch ::= casos_switch:cs1 caso_switch:cs2                               
 
 //Case Encabezado
 caso_switch_encabezado ::= SIAPARECE SPACEGATO encanto:e DOUBLEDOT                                      {:String[] partesEncanto = e.toString().split(":");
+                                                                                                        
                                                                                                          //Creación de Codigo 3-D 
                                                                                                           stackLlaves.push(currentCase);   
                                                                                                           codigo3D.append("\n" +"IF " + partesEncanto[1] + " GOTO inicio_bloque_CASE_"+ currentCase +":");
@@ -763,26 +787,22 @@ conjuro_para ::= conjuro_para_encabezado KEYL conjuros KEYR DOTCOMMA            
             
 ;
 
-inicio_fin_paso ::= inicio:i COMMA fin:f COMMA paso                                                                 {:String[] partesEncantoInicio = i.toString().split(":");
-                                                                                                                     System.out.println("AYUDAAAAAAAAAAAAAAAAAAAAA-----:" + partesEncantoInicio[0]);
+inicio_fin_paso ::= inicio:i COMMA fin:f COMMA paso:p                                                                {:String[] partesEncantoInicio = i.toString().split(":");
                                                                                                                      String[] partesEncantoFinal = f.toString().split(":");
-                                                                                                                     System.out.println("AYUDAAAAAAAAAAAAAAAAAAAAA-----:" + partesEncantoFinal[0]);
-                                                                                                                      
-                                                                                                                    if(!(partesEncantoInicio[0].equals("Numera") || partesEncantoFinal[0].equals("SiNox"))){
-                                                                                                                        System.out.println("Error Semántico: Conjuro-Para no permite estos tipos de datos:" + partesEncantoInicio[0] + " y:  " + partesEncantoFinal[0]);
+                                                                                                                     String[] partesEncantoPaso = p.toString().split(":"); 
+                                                                                                                    if(!(partesEncantoInicio[0].equals("Numera") || partesEncantoFinal[0].equals("SiNox") || partesEncantoPaso[0].equals("Numera"))){
+                                                                                                                        System.out.println("Error Semántico: Conjuro-Para no permite estos tipos de datos: Inicio:" + partesEncantoInicio[0] + " ,Fin:  " + partesEncantoFinal[0] + " ,Paso: " + partesEncantoPaso[0]);
                                                                                                                     }else{
-                                                                                                                             RESULT = partesEncantoInicio[1] + ":" + partesEncantoFinal[1];
+                                                                                                                        RESULT = partesEncantoInicio[1] + ":" + partesEncantoFinal[1];
                                                                                                                     }
                                                                                                                     :}
-            | inicio:i COMMA fin:f                                                                                  {:String[] partesEncantoInicio = i.toString().split(":");
-                                                                                                                     System.out.println("AYUDAAAAAAAAAAAAAAAAAAAAA-----:" + partesEncantoInicio[0]);
+            | inicio:i COMMA fin:f                                                                                  {:String[] partesEncantoInicio = i.toString().split(":");                                                                                                                   
                                                                                                                      String[] partesEncantoFinal = f.toString().split(":");
-                                                                                                                     System.out.println("AYUDAAAAAAAAAAAAAAAAAAAAA-----:" + partesEncantoFinal[0]);  
-                                                                                                                    if(!(partesEncantoInicio[0].equals("Numera") || partesEncantoFinal[0].equals("SiNox"))){
+                                                                                                                     if(!(partesEncantoInicio[0].equals("Numera") || partesEncantoFinal[0].equals("SiNox"))){
                                                                                                                         System.out.println("Error Semántico: Conjuro-Para no permite estos tipos de datos:" + partesEncantoInicio[0] + " y:  " + partesEncantoFinal[0]);
-                                                                                                                    }else{
+                                                                                                                     }else{
                                                                                                                             RESULT = partesEncantoInicio[1] + ":" + partesEncantoFinal[1];
-                                                                                                                    }
+                                                                                                                     }
                                                                                                                     :}
             /*| fin COMMA paso      */                  //Genera problemas
             | fin:f                                                                                                   {:String[] partesEncantoFinal = f.toString().split(":");                                                                                                                     
@@ -801,9 +821,7 @@ inicio_fin_paso ::= inicio:i COMMA fin:f COMMA paso                             
 
 
 inicio ::=  nombre_ingrediente:n ASSIGN encanto:en                                                                  {: String[] partesEncanto = en.toString().split(":");   //[0]:Tipo, [1]:Temporal
-                                                                                                                      System.out.println("AYUDA DIOSITO 1:"+ partesEncanto[0].toString());
-                                                                                                                      System.out.println("AYUDA DIOSITO 2:"+ partesEncanto[1].toString());
-                                                                                                                        if(!(partesEncanto[0].toString().equals("Numera"))){
+                                                                                                                      if(!(partesEncanto[0].toString().equals("Numera"))){
                                                                                                                             System.out.println("Error Semántico: Tipo de Variable y Valor asignado no coinciden.");
                                                                                                                         }else{
                                                                                                                             //Código 3-D
@@ -817,9 +835,7 @@ inicio ::=  nombre_ingrediente:n ASSIGN encanto:en                              
 ;
 
 fin::= nombre_ingrediente:n ASSIGN encanto:en                                                                         {: String[] partesEncanto = en.toString().split(":");
-                                                                                                                      System.out.println("AYUDA DIOSITO 3:"+ partesEncanto[0].toString());
-                                                                                                                      System.out.println("AYUDA DIOSITO 4:"+ partesEncanto[1].toString());
-                                                                                                                        if(!(partesEncanto[0].toString().equals("SiNox"))){
+                                                                                                                      if(!(partesEncanto[0].toString().equals("SiNox"))){
                                                                                                                             System.out.println("Error Semántico: Tipo de Variable y Valor asignado no coinciden.");
                                                                                                                         }else{
                                                                                                                             //Código 3-D
@@ -829,9 +845,29 @@ fin::= nombre_ingrediente:n ASSIGN encanto:en                                   
                                                                                                                         } 
                                                                                                                     :}
         | nombre_ingrediente:n                                                                                      {: RESULT = verificarTipoVariable(n.toString());:}
+
+        | SPACEGATO encanto:en                                                                                      {: String[] partesEncanto = en.toString().split(":");
+                                                                                                                      if(!(partesEncanto[0].toString().equals("SiNox"))){
+                                                                                                                            System.out.println("Error Semántico: Tipo de Variable y Valor asignado no coinciden.");
+                                                                                                                        }else{
+                                                                                                                            //Código 3-D
+                                                                                                                            codigo3D.append("\n" + "data_" + "SiNox" + " " + "fin");      
+                                                                                                                            codigo3D.append("\n" + "fin" + "=" +  partesEncanto[1].toString());
+                                                                                                                            RESULT = en.toString();
+                                                                                                                        } 
+                                                                                                                    :}
 ;
 
-paso ::= nombre_ingrediente ASSIGN encanto
+paso ::= nombre_ingrediente:n ASSIGN encanto:en                                                                     {: String[] partesEncanto = en.toString().split(":");
+                                                                                                                      if(!(partesEncanto[0].toString().equals("Numera"))){
+                                                                                                                            System.out.println("Error Semántico: Tipo de Variable y Valor asignado no coinciden.");
+                                                                                                                        }else{
+                                                                                                                            //Código 3-D
+                                                                                                                            codigo3D.append("\n" + "data_" + "Numera" + " " + n.toString());      
+                                                                                                                            codigo3D.append("\n" + n.toString() + "=" +  partesEncanto[1].toString());
+                                                                                                                            RESULT = en.toString();
+                                                                                                                        } 
+                                                                                                                    :}
         | nombre_ingrediente:n                                                                                        {: RESULT = verificarTipoVariable(n.toString());:}
         | nombre_ingrediente PLUSPLUS DOTCOMMA
         | nombre_ingrediente MINUSMINUS DOTCOMMA
@@ -880,8 +916,8 @@ conjuro_arcano ::= invocacion_term:it conjuro_arcano_prima:c                    
                                                                                         String[] partesOperando2 = c.toString().split(":");
                                                                                         boolean flag = false;
                                                                                         String tipoOperacion = "null";
-                                                                                        System.out.println("TipoParte1: " + it.toString() );
-                                                                                        System.out.println("TipoParte2: " + c.toString() );
+                                                                                        //System.out.println("TipoParte1: " + it.toString() );
+                                                                                        //System.out.println("TipoParte2: " + c.toString() );
                                                                                         if(!(partesOperando1[1].equals("Numera") || partesOperando1[1].equals("NumeraDecimus")|| (partesOperando1[1].equals("SiNox") && partesOperando2[1].equals("Empty")) || (partesOperando1[1].equals("Runas") && partesOperando2[1].equals("Empty")) || (partesOperando1[1].equals("Runa") && partesOperando2[1].equals("Empty")))){  //Si el tipo del primer operando no es int o float o no cumple que el primer operando sea un Bool y el segundo un Empty
                                                                                             System.out.println("Operando Inválido, no es Int o Float, Revise:" + partesOperando1[0] );
                                                                                             flag = true;
@@ -898,17 +934,52 @@ conjuro_arcano ::= invocacion_term:it conjuro_arcano_prima:c                    
                                                                                               if(!(partesOperando2[1].equals("Empty"))){  
                                                                                                 
                                                                                                 this.codigo3D.append("\n" + miTemp + "=" + partesOperando1[2] + partesOperando2[0] + "t" + (currentTemp - 1));   
-                                                                                                System.out.println("MiTEMp:" + miTemp);
+                                                                                               // System.out.println("MiTEMp:" + miTemp);
                                                                                                 tipoOperacion = partesOperando1[1] + ":" + miTemp ;
                                                                                                 miTemp = "t" + currentTemp++;
                                                                                             }else{
-                                                                                                System.out.println("GOKU");
+                                                                                                
                                                                                                 tipoOperacion = partesOperando1[1] + ":t" + (currentTemp - 1) ;
                                                                                             }
                                                                                           }
                                                                                            
                                                                                         
-                                                                                        System.out.println("====>Tipo de la Operación Combinada: " + tipoOperacion);
+                                                                                        //System.out.println("====>Tipo de la Operación Combinada: " + tipoOperacion);
+                                                                                        RESULT = tipoOperacion; 
+                                                                                        :}
+| MINUS invocacion_term:it conjuro_arcano_prima:c                                       {:           
+                                                                                        String[] partesOperando1 = it.toString().split(":"); 
+                                                                                        String[] partesOperando2 = c.toString().split(":");
+                                                                                        boolean flag = false;
+                                                                                        String tipoOperacion = "null";
+                                                                                        //System.out.println("TipoParte1: " + it.toString() );
+                                                                                        //System.out.println("TipoParte2: " + c.toString() );
+                                                                                        if(!(partesOperando1[1].equals("Numera") || partesOperando1[1].equals("NumeraDecimus"))){  //Si el tipo del primer operando no es int o float
+                                                                                            System.out.println("Operando Inválido, no es Int o Float, Revise:" + partesOperando1[0] );
+                                                                                            flag = true;
+                                                                                        }
+                                                                                        if(!(partesOperando2[1].equals("Numera") || partesOperando2[1].equals("NumeraDecimus")  || partesOperando2[1].equals("Empty"))){  //Si el tipo del segundo operando no es int o float o vacio
+                                                                                            System.out.println("Operando Inválido, no es Int o Float, Revise:" + partesOperando2[0] );
+                                                                                            flag = true;
+                                                                                        }
+
+                                                                                        if(!(!flag && (partesOperando2[1].equals(partesOperando1[1]) || partesOperando2[1].equals("Empty")) )){  //Si ambos tipos no son iguales o el segundo operando no es vacío
+                                                                                            System.out.println("Operandos Inválidos, Deben ser del mismo tipo. Revise el operando:" + partesOperando1[0]);
+                                                                                        }else{
+                                                                                            String miTemp = "t" + currentTemp;
+                                                                                              if(!(partesOperando2[1].equals("Empty"))){                                                                                              
+                                                                                                this.codigo3D.append("\n" + miTemp + "=" + partesOperando1[2] + partesOperando2[0] + "t" + (currentTemp - 1));   
+                                                                                                //System.out.println("MiTEMp:" + miTemp);
+                                                                                                tipoOperacion = partesOperando1[1] + ":" + miTemp ;
+                                                                                                miTemp = "t" + currentTemp++;
+                                                                                            }else{
+                                                                                                
+                                                                                                tipoOperacion = partesOperando1[1] + ":t" + (currentTemp - 1) ;
+                                                                                            }
+                                                                                          }
+                                                                                           
+                                                                                        
+                                                                                        //System.out.println("====>Tipo de la Operación Combinada: " + tipoOperacion);
                                                                                         RESULT = tipoOperacion; 
                                                                                         :}
             |                                                                           {:RESULT = "Empty"; :}
@@ -927,13 +998,13 @@ conjuro_arcano_prima ::= PLUS invocacion_term:it conjuro_arcano_prima:c         
 invocacion_term ::= invocacion_factor:f                                                 {: RESULT = f; :}
 ;
 
-invocacion_factor ::= nombre_ingrediente:n                                              {:  String tipoVariable = verificarTipoVariable(n.toString() + ":t"+currentTemp); 
+invocacion_factor ::= nombre_ingrediente:n                                              {:  String tipoVariable = verificarTipoVariable(n.toString()) + ":t" +currentTemp; 
                                                                                             RESULT = tipoVariable;
                                                                                             
                                                                                             //Codigo 3-D
                                                                                             String miTemp = "t"+currentTemp++;
                                                                                             codigo3D.append("\n" + miTemp + "=" + n.toString());                                                                                      
-                                                                                            RESULT = n  + ":Numera:" + miTemp;         
+                                                                                            RESULT = n  + ":" + tipoVariable + ":" + miTemp;         
                                                                                         :}
             | Numera:n                                                                  {: 
                                                                                             //Codigo 3-D
@@ -955,14 +1026,24 @@ invocacion_factor ::= nombre_ingrediente:n                                      
                                                                                             String miTemp = "t"+currentTemp++;
                                                                                             codigo3D.append("\n" + miTemp + "=" + r.toString()); 
                                                                                             RESULT = r + ":Runas:" + miTemp;            :}
-            | invocacion_funcion:f                                                      {: RESULT = " :" + f.toString() + ":" ;     :}
+            | invocacion_funcion:f                                                      {:  String[] partesFuncion = f.toString().split(":"); //[0]: Tipo y [1]:Nombre
+                                                                                            //Codigo 3-D
+                                                                                            String miTemp = "t"+currentTemp++;
+                                                                                            codigo3D.append("\n" + miTemp + "=" + partesFuncion[1].toString()); 
+                                                                                            RESULT = " :" + partesFuncion[0].toString() + ":" ;     :}
 
 ;
-
-invocacion_funcion ::= SPACEGATO nombre_ingrediente:n PARENL encantos PARENR                            {:RESULT =  verificarTipoFuncion(n.toString()); :}
+//Invocación a Función
+invocacion_funcion ::= SPACEGATO nombre_ingrediente:n PARENL encantos PARENR                            {:  String res = verificarTipoFuncion(n.toString());
+                                                                                                            if(res.equals("null")){
+                                                                                                              System.out.println("Error Semántico: Función: <<" + n.toString() + ">> aún no está declarada.");
+                                                                                                            }else{
+                                                                                                                RESULT = res + ":" + n.toString() ; 
+                                                                                                            }
+                                                                                                            :}
            //| SPACEGATO nombre_ingrediente PARENL encantos PARENR DOTCOMMA
 ;
-
+//Parámetros de Función
 encantos ::= encantos COMMA encanto
             | encanto           
 ;
@@ -975,7 +1056,7 @@ conjuro_relacional ::= conjuro_arcano:c1 encantamiento_relacional:e conjuro_arca
                                                                                                                 System.out.println("Error Semántico: Expresiones deben ser del mismo tipo.");
                                                                                                             }else{
                                                                                                                 
-                                                                                                                System.out.println("AQUI VOYYYY:" + signo + ":SiNox");
+                                                                                                                //System.out.println("AQUI VOYYYY:" + signo + ":SiNox");
                                                                                                                 RESULT = "SiNox"+ ":t" + (currentTemp); //RESULT = " :"+ tipo;
  
                                                                                                                 //Codigo 3-D
@@ -1017,6 +1098,7 @@ conjuro_relacional ::= conjuro_arcano:c1 encantamiento_relacional:e conjuro_arca
                         //| conjuro_arcano:c1 encantamiento_relacional:e nombre_ingrediente:n2
 ;
 
+//Expresión Relacional
 encantamiento_relacional ::=  LESS      {: RESULT = "LESS"; :}
                             | LESSEQ    {: RESULT = "LESSEQ"; :}
                             | GREATER   {: RESULT = "GREATER"; :}
@@ -1043,13 +1125,14 @@ ritual_logico ::= conjuro_logico:cl cola_conjuro_logico:col                     
                                                                                                        :}              
 ;
 
-
+//Expresion Lógica
 conjuro_logico ::= conjuro_logico_factor:cf                                                             {:RESULT = cf.toString();:}                              
 ;
 
+//Expresion Lógica Factor
 conjuro_logico_factor ::= conjuro_logico_negacion:cn                                                    {:RESULT = cn.toString();:}
             |  ARROBA nombre_ingrediente:n  ARROBA                                                      {:
-                                                                                                        System.out.println("Tipo de N:"+verificarTipoVariable(n.toString())); 
+                                                                                                        //System.out.println("Tipo de N:"+verificarTipoVariable(n.toString())); 
                                                                                                         if(!(verificarTipoVariable(n.toString()).equals("SiNox"))){
                                                                                                             System.out.println("Error Semántico: Tipo de Dato no permitido en Conjuro Logico. Debe ser <<SiNox>>");
                                                                                                         }else{
@@ -1068,7 +1151,6 @@ conjuro_logico_factor ::= conjuro_logico_negacion:cn                            
                                                                                                             System.out.println("Error Semántico: Tipo de Dato no permitido en Conjuro Logico.  Valor de Expresión Relacional es null."); 
                                                                                                          }else{
 
-                                                                                                            System.out.println("GOKUUUUUAAAA:" + cr.toString()); 
                                                                                                             RESULT = cr.toString();
 
                                                                                                          } 
@@ -1076,19 +1158,17 @@ conjuro_logico_factor ::= conjuro_logico_negacion:cn                            
             |  ARROBA invocacion_funcion:n ARROBA                                                       {:if(n.equals("null")){ //si c es null, mostrar error
                                                                                                             System.out.println("Error Semántico: Tipo de Dato no permitido en Conjuro Logico.  Valor de Función es null."); 
                                                                                                           }else{
-
-                                                                                                            System.out.println("GOKUUUUUAAAA:" + n.toString()); 
                                                                                                             RESULT = n.toString()+":tx";
 
                                                                                                          } 
                                                                                                         :}  
 ;
-
+//Expresion Lógica - Negación
 conjuro_logico_negacion::= NOT SPACEGATO conjuro_logico_factor:cf                                       {:RESULT = cf.toString();:}
             |  NOTC SPACEGATO conjuro_logico_factor:cf                                                  {:RESULT = cf.toString();:}
 
 ;
-
+//Cola Expresion Lógica
 cola_conjuro_logico ::= cola_conjuro_logico:col AND SPACEGATO conjuro_logico:cl                         {: if(!(cl.toString().equals(col.toString()))){
                                                                                                                 System.out.println("Error Semántico: Expresiones de <<Ritual Lógico>> Deben ser <<SiNox>>.");
                                                                                                         }else{
